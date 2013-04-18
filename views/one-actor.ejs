@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Election Data: <%=item.name%></title>
+    <title>Actor Data: <%=item.name%></title>
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <a href="/"><h1>Election Data</h1></a>
+    <a href="/"><h1>Actor Data</h1></a>
     <dl>
-      <dt>Name</dt>
+      <dt>Actor Name</dt>
       <dd><%=item.name%></dd>
-      <dt>Party</dt>
-      <dd><a href="/parties/<%=item.party%>"><%=item.party%></a></dd>
+      <dt>Movie</dt>
+      <dd><a href="/Movies/<%=item.movie%>"><%=item.movie%></a></dd>
       <% if (item.image) { %>
       <dt>Image URL</dt>
       <dd><img src="<%=item.image%>" alt="<%=item.name%>"></dd>
       <% } %>
     </dl>
     <div class="control">
-      <h2>Update candidate</h2>
-      <form method="put" action="/candidates/<%=item._id%>">
+      <h2>Update actor</h2>
+      <form method="put" action="/actors/<%=item._id%>">
         <label>Name: 
           <input name="item[name]" value="<%=item.name%>" type="text" required>
         </label>
-        <label>Party: 
-          <select name="item[party]" required>
+        <label>Movie: 
+          <select name="item[movie]" required>
             <% related_items.forEach(function(related_item) { %>
             <option value="<%=related_item._id%>"
-              <% if (related_item._id === item.party) { %>selected<% } %>>
+              <% if (related_item._id === item.movie) { %>selected<% } %>>
               <%=related_item.name%>
             </option>
             <% }); %>

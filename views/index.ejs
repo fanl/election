@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Election Data</title>
+    <title>Movie Data</title>
     <link rel="stylesheet" href="/style.css">
   </head>
   <body>
     <div id="display"></div>
-    <button id="candidates-button" class="toggle" type="button">View candidates</button>
-    <button id="parties-button" class="toggle" type="button">View parties</button>
+    <button id="actors-button" class="toggle" type="button">View actors</button>
+    <button id="movies-button" class="toggle" type="button">View movies</button>
     <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script>
 var loaded = null;
@@ -24,7 +24,7 @@ function load(path) {
 function onLinkClick(click) {
   click.preventDefault();
   var href = $(this).attr('href');
-  if (href == '/') { load('/parties/'); }
+  if (href == '/') { load('/movies/'); }
   else { load(href); }
 }
 function onFormSubmit(submit) {
@@ -48,9 +48,9 @@ function onFormSubmit(submit) {
   }
   $.ajax(o);
 }
-load('/parties/');
-$('#parties-button').click(function() { load('/parties/'); });
-$('#candidates-button').hide().click(function() { load('/candidates/'); });
+load('/movies/');
+$('#movies-button').click(function() { load('/movies/'); });
+$('#actors-button').hide().click(function() { load('/actors/'); });
     </script>
   </body>
 </html>
