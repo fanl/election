@@ -51,9 +51,6 @@ all-movies- Applied to an A tag. A reference to the starting URI for the applica
 all-actors- Applied to an A tag. A reference to the list of actors.
 ```
 
-----------------------------------------------------------------------------------------------
-
-
 ##Microdata type
 ```
 itemtype="http://schema.org/Movie"*
