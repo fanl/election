@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Actor Data: <%=item.name%></title>
+    <title>Movie Data: <%=item.actor%></title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body>
-    <a href="/"><h1>Actor Data</h1></a>
+  <body itemscope itemtype="http://schema.org/Person" >
+  
+    <a href="/"><h1>Movie Data</h1></a>
+    
     <dl>
+      
       <dt>Actor Name</dt>
-      <dd><%=item.name%></dd>
-      <dt>Movie</dt>
-      <dd><a href="/Movies/<%=item.movie%>"><%=item.movie%></a></dd>
+      <dd itemprop="name"><%=item.actor%></dd>
+      
+      <dt>Birthday</dt>
+      <dd itemprop="birthDate"><%=item.birthday%></dd>
+      
+      <dt>Movies</dt>
+      <dd itemprop="performerIn"><a itemprop="url" rel="movie" href="/movies/<%=item.movie%>"><%=item.movie%></a></dd>
+      
       <% if (item.image) { %>
-      <dt>Image URL</dt>
-      <dd><img src="<%=item.image%>" alt="<%=item.name%>"></dd>
+      <dt class="movie-image">Actor Image</dt>
+      <dd itemprop="image"><img src="<%=item.image%>" alt="<%=item.name%>" width="220px" height="300px"></dd>
       <% } %>
     </dl>
-    <div class="control">
+    
       <h2>Update actor</h2>
-      <form method="put" action="/actors/<%=item._id%>">
+      <form class="actor-update" method="post" action="/actors/<%=item._id%>">
+        <input type="hidden" name="_method" value="put">
+        <!-- The line above tells the server to treat this as a PUT request. -->
+        
         <label>Name: 
-          <input name="item[name]" value="<%=item.name%>" type="text" required>
+          <input name="item[actor]" value="<%=item.actor%>" type="text" required>
         </label>
+        
+        <label>Birthday: 
+          <input name="item[birthday]" value="<%=item.birthday%>" type="text" required>
+        </label>
+        
         <label>Movie: 
           <select name="item[movie]" required>
             <% related_items.forEach(function(related_item) { %>
@@ -32,9 +48,11 @@
             <% }); %>
           </select>
         </label>
-        <label>Image URL:
+        
+        <label>Actor Image URL:
           <input name="item[image]" value="<%=item.image%>" type="url" size="80"> 
         </label>
+        
         <button>Update</button>
       </form>
     </div>

@@ -1,11 +1,27 @@
-.control {
+.movie-add {
   border: 1px solid gray;
   margin: 30px 10px 10px;
   padding: 10px;
 }
-.control h2 {
-  margin: 10px 0; 
+
+.actor-search {
+  border: 1px solid gray;
+  margin: 30px 10px 10px;
+  padding: 10px;
 }
+
+.actor-add {
+  border: 1px solid gray;
+  margin: 30px 10px 10px;
+  padding: 10px;
+}
+
+.actor-update {
+  border: 1px solid gray;
+  margin: 30px 10px 10px;
+  padding: 10px;
+}
+
 label, input, textarea, select, button {
   display: block;  
 }

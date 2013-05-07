@@ -4,54 +4,78 @@
     <title>Movie Data: Movies</title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body>
+  
+  <body itemscope itemtype="http://schema.org/Movie" >
     <a href="/"><h1>Movie Data</h1></a>
-    <% if (items.length > 0) { %>
-    <ul>
-      <% items.forEach(function(item) { %>
-      <li><a href="/Movies/<%=item._id%>"><%=item.name%></a></li>
-      <% }); %>
-    </ul>
-    <% } else { %>
-    <div>No Movies have been added.</div>
+    
+      <% if (items.length > 0) { %>
+      <ul class="all">
+        <% items.forEach(function(item) { %>
+        <li itemprop="name" class="movie"><a itemprop="url" rel="movie" href="/movies/<%=item._id%>"><%=item.name%></a></li>
+        <% }); %>
+      </ul>
+      <% } else { %>
+    <div>No movies have been added.</div>
     <% } %>
-    <div class="control">
-      <h2>Add or update a new movie</h2>
-      <form method="put" action="/Movies/">
-        <label>Movie ID<br>
-          <input name="item[id]" type="text" required
+    
+    
+      <script>
+      function onFormSubmit(form) {
+        form.action = form.action + form.elements['item[id]'].value;
+        console.log(form.action);
+        return true;
+      } 
+      </script>
+      
+      <form class="movie-add" method="post" action="/movies/"
+            onsubmit="return onFormSubmit(this);">
+        <!-- The line above dynamically sets the PUT destination when the -->
+        <!-- form is submitted. -------------------------------------------->
+        <input type="hidden" name="_method" value="put">
+        <!-- The line above tells the server to treat this as a PUT request. -->
+        <h2>Add a new movie</h2>
+        
+        <label>IMDB ID<br>
+          <input name="item[id]" type="text"  required
                  placeholder="tt0068646">
         </label>
+        
         <label>Movie name: 
           <input name="item[name]" type="text" required
                  placeholder="The Godfather">
         </label>
-         <label>Director: 
+        
+        <label>Director:
           <input name="item[director]" type="text" required
                  placeholder="Francis Ford Coppola">
         </label>
-         <label>Genres: 
+        
+        <labe>Genre: 
           <input name="item[genre]" type="text" required
                  placeholder="Crime, Drama">
         </label>
-         <label>Country: 
+        
+        <label>Country:
           <input name="item[country]" type="text" required
                  placeholder="USA">
         </label>
-        <label>Language: 
+        
+        <label>Language:
           <input name="item[language]" type="text" required
-                 placeholder="English">
+                 placeholder="English">         
         </label>
-        <label>Year: 
-          <input name="item[year]" type="text" required
-                 placeholder="1972">         
+    
+        <label>Release Date:
+          <input name="item[date]" type="text" required
+                 placeholder="24 March 1972">
         </label>
+    
         <label>Movie poster URL:
           <input name="item[image]" type="url" size="80"
                    placeholder="http://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg">
         </label>
-        <button>Add or update</button>
+        
+        <button>Add</button>
       </form>
-    </div>
   </body>
 </html>

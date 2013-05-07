@@ -4,23 +4,27 @@
     <title>Movie Data: Actors</title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body>
+  <body itemscope itemtype="http://schema.org/Person">
     <a href="/"><h1>Movie Data</h1></a>
-    <% if (items.length > 0) { %>
-    <ul>
-      <% items.forEach(function(item) { %>
-      <li><a href="/actors/<%=item._id%>"><%=item.name%></a></li>
-      <% }); %>
-    </ul>
-    <% } else { %>
+    
+    <div id="actors">
+      <% if (items.length > 0) { %>
+      <ul class="all">
+        <% items.forEach(function(item) { %>
+        <li itemprop="name" class="actor">
+        <a itemprop="url" rel="actor" href="/actors/<%=item._id%>"><%=item.actor%></a></li>
+        <% }); %>
+      </ul>
+      <% } else { %>
     <div>No actors found.</div>
     <% } %>
-    <div class="control">
+    </div>
+    
+      <form class="actor-search" method="get" action="/actors/">
       <h2>Search for actors by name</h2>
-      <form method="get" action="/actors/">
         <label>Actor name: <input name="name"></label>
         <button>Search</button>
       </form>
-    </div>
+
   </body>
 </html>

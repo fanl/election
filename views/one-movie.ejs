@@ -4,24 +4,26 @@
     <title>Movie Data: <%=item.name%></title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body>
+  <body itemscope itemtype="http://schema.org/Movie">
     <a href="/"><h1>Movie Data</h1></a>
+    
     <dl>
-      <dt>Movie name</dt>
-      <dd><%=item.name%></dd>
-   <% if (item.description) { %>
-      <dt>Movie ID</dt>
-      <dd><%=item.discription%></dd>
-      <% } %>
-      <dt>actors</dt>
+    
+      <dt class="movie-id">IMDB ID</dt>
+      <dd ><%=item.id%></dd>
       
+      <dt class="movie-name">Movie name</dt>
+      <dd imteprop="name"><%=item.name%></dd>
+      
+      <div itemprop="actor" itemscope itemtype="http://schema.org/Person">
+      <dt class="movie-actor">Cast</dt>
       <dd>
         <% if (related_items.length > 0) { %>
         <ul>
           <% related_items.forEach(function(related_item) { %>
-          <li>
-            <a href="/actos/<%=related_item._id%>">
-              <%=related_item.name%>
+          <li itemprop="name" class="movie-actors">
+            <a itemprop="url" class="actor" href="/actors/<%=related_item._id%>">
+              <%=related_item.actor%>
             </a>
           </li>
           <% }); %>
@@ -30,27 +32,54 @@
         No actors have been added to this movie.
         <% } %>
       </dd>
+      </div>
+      
+      <div itemprop="director" itemscope itemtype="http://schema.org/Person">
+      <dt class="movie-director">Director</dt>
+      <dd itemprop="name"><%=item.director%></dd>
+      </div>
+      
+      <dt class="movie-genre">Genre</dt>
+      <dd itemprop="genre"><%=item.genre%></dd>
+      
+      <dt class="movie-country">Country</dt>
+      <dd itemprop="contentLocation"><%=item.country%></dd>
+      
+      <dt class="movie-language">Language</dt>
+      <dd itemprop="inLanguage"><%=item.language%></dd>
+      
+      <dt class="movie-date">Release Date</dt>
+      <dd itemprop="datePublished"><%=item.date%></dd>
+    
+     <% if (item.image) { %>
+      <dt class="movie-image">Movie Poster</dt>
+      <dd itemprop="image"><img src="<%=item.image%>" alt="<%=item.name%>" width="200px" height="300px"></dd>
+      <% } %>
     </dl>
-    <div class="control">
-      <h2>Add a new actor</h2>
-      <form id="create-actor" method="post" action="/actors/">
+    
+    
+      <form class="actor-add" method="post" action="/actors/">
         <input type="hidden" name="item[movie]" value="<%=item._id%>">
-        <!-- The line above links the actor to be created to this movie. -->
+        <!-- The line above links the candidate to be created to this party. -->
+        
+        <h2>Add a new actor</h2>
         
         <label>Actor name: 
-          <input name="item[name]" type="text" required
-                   placeholder="Marlon Brando">
+          <input name="item[actor]" type="text" required
+                   placeholder="Al Pacino">
         </label>
-        <label>Born: 
-          <input name="item[born]" type="text" required
-                   placeholder="April 4, 1924">
+        
+        <label>Actor Birthday: 
+          <input name="item[birthday]" type="text" required
+                   placeholder="April 25, 1940">
         </label>
+        
         <label>Actor image URL:
           <input name="item[image]" type="url" size="80"
-                   placeholder="http://en.wikipedia.org/wiki/File:Marlon_Brando_-_The_Wild_One.jpg">
+                   placeholder="http://upload.wikimedia.org/wikipedia/commons/9/98/Al_Pacino.jpg">
         </label>
         <button>Add</button>
       </form>
-    </div>
+      
   </body>
 </html>

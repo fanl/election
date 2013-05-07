@@ -1,56 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Movie Data</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>Movie Data: Home</title>
   </head>
   <body>
-    <div id="display"></div>
-    <button id="actors-button" class="toggle" type="button">View actors</button>
-    <button id="movies-button" class="toggle" type="button">View movies</button>
-    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script>
-var loaded = null;
-function load(path) {
-  if (path === loaded) { return; }
-  $.get(path, function (data) {
-    loaded = path;
-    $('#display').html(data);
-    $('.toggle').toggle();
-    $("a").click(onLinkClick);
-    $("form").submit(onFormSubmit);
-  });
-}
-function onLinkClick(click) {
-  click.preventDefault();
-  var href = $(this).attr('href');
-  if (href == '/') { load('/movies/'); }
-  else { load(href); }
-}
-function onFormSubmit(submit) {
-  submit.preventDefault();
-  var form = $(this);
-  var o = { 
-    url: form.attr('action'),
-    type: form.attr('method'),
-    data: form.serialize(),
-    success: function(data, status, xhr) {
-      if (status == 'success') {
-        load(xhr.getResponseHeader('Location'));
-      } else {
-        $('#display').html('<span class="error">Hmmm... something broke.</span>');
-      } 
-    }
-  };
-  if (o.type == 'put' && 'item[id]' in this.elements) {
-    o.url += this.elements['item[id]'].value;
-    o.data = o.data.split('&').slice(1).join('&');
-  }
-  $.ajax(o);
-}
-load('/movies/');
-$('#movies-button').click(function() { load('/movies/'); });
-$('#actors-button').hide().click(function() { load('/actors/'); });
-    </script>
+    <a href="/"><h1>Movie Data</h1></a>
+    <div>
+      <a rel="all-movies" href="/movies/"><h2>List of movies</h2></a>
+    </div>
+    <div>
+      <a rel="all-actors" href="/actors/"><h2>List of actors</h2></a>
+    </div>
   </body>
 </html>

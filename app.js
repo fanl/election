@@ -48,8 +48,8 @@ app.put('/movies/:id',      // TODO: change to suit your URI design.
       // If there was a database error, return an error status.
       if (err) { res.send(err, 500); } 
       
-      // Otherwise, send back the location of the created/updated item.
-      else { res.send('', { Location: '/movies/' + item_id }, 204); }
+      // Otherwise, redirect back to the URI from which the form was submitted.
+      else { res.redirect('back' ); }
     });
   }
 );
@@ -84,6 +84,7 @@ app.get('/movies/',         // TODO: change to suit your URI design.
 // Example of handling POST to create a resource. //////////////////////////////
 // Here we create an item and allow the ID to be created automatically. ////////
 ////////////////////////////////////////////////////////////////////////////////
+
 app.post('/actors/', // TODO: change to suit your URI design.
   function(req, res) {
   
@@ -94,13 +95,13 @@ app.post('/actors/', // TODO: change to suit your URI design.
     item.type = 'actor'; // TODO: change to the type of item you want
 
     // Save the new item to the database. (No ID specified, it will be created.)
-    db.save(item, function(err, item) {
+    db.save(item, function(err) {
 
       // If there was a database error, return an error status.
       if (err) { res.send(err, 500); } 
       
-      // Otherwise, send back the location of the created item.
-      else { res.send('', { Location: '/actors/' + item.id }, 204); }
+      // Otherwise, redirect back to the URI from which the form was submitted.
+      else { res.redirect('back' ); }
     });
   }
 );
@@ -127,8 +128,8 @@ app.put('/actors/:id', // TODO: change to suit your URI design.
       // If there was a database error, return an error status.
       if (err) { res.send(err, 500); } 
       
-      // Otherwise, send back the location of the updated item.
-      else { res.send('', { Location: '/actors/' + item_id }, 204); }
+      // Otherwise, redirect back to the URI from which the form was submitted.
+      else { res.redirect('back' ); }
     });
   }
 );
@@ -171,7 +172,6 @@ app.get('/movies/:id',      // TODO: change to suit your URI design.
 
     // Get the item ID from the URI.
     var item_id = req.params.id;
-  
     // Get one item of the specified type, identified by the item ID.
     db.getOne(item_type, item_id, function(err, item) {
         
